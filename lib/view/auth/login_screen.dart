@@ -1,7 +1,8 @@
 import 'package:e_commerce_app/constants.dart';
+import 'package:e_commerce_app/view/widgets/custom_button.dart';
+import 'package:e_commerce_app/view/widgets/custom_button_social.dart';
 import 'package:e_commerce_app/view/widgets/custom_text.dart';
 import 'package:e_commerce_app/view/widgets/custom_text_form_field.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -15,7 +16,7 @@ class LoginScreen extends StatelessWidget {
         backgroundColor: Colors.white,
       ),
       body: Padding(
-        padding: EdgeInsets.only(
+        padding: const EdgeInsets.only(
           top: 50,
           right: 20,
           left: 50,
@@ -50,18 +51,56 @@ class LoginScreen extends StatelessWidget {
               onSave: (value) {},
               onValidate: (value) {},
             ),
-            const SizedBox(height: 40,),
+            const SizedBox(
+              height: 40,
+            ),
             CustomTextFormField(
               text: "password",
               hint: "*************",
               onSave: (value) {},
               onValidate: (value) {},
             ),
-            const SizedBox(height: 20,),
-            CustomText(text: "Forget password?", fontSize: 14, alignment: Alignment.topRight,)
+            const SizedBox(
+              height: 20,
+            ),
+            const CustomText(
+              text: "Forget password?",
+              fontSize: 14,
+              alignment: Alignment.topRight,
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            CustomButton(
+              text: 'LOGIN',
+              onPressed: () {},
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            const CustomText(
+              text: "-OR-",
+              fontSize: 16,
+              alignment: Alignment.center,
+            ),
+            const SizedBox(
+              height: 40,
+            ),
+            CustomButtonSocial(
+              onPressed: () {},
+              imageName: "assets/images/google.png",
+              text: "Sign in with google",
+            ),
+            const SizedBox(height: 40,),
+            CustomButtonSocial(
+              onPressed: () {},
+              imageName: "assets/images/facebook.png",
+              text: "Sign in with Facebook",
+            ),
           ],
         ),
       ),
     );
   }
 }
+
