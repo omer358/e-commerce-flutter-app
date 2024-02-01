@@ -47,29 +47,31 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyC8bJnQrg7PmAZgVc1hQYnq9czhc8OTj7s',
-    appId: '1:308636382575:web:3b8452c11ef1a77d82249a',
-    messagingSenderId: '308636382575',
-    projectId: 'e-commerce-e9f06',
-    authDomain: 'e-commerce-e9f06.firebaseapp.com',
-    storageBucket: 'e-commerce-e9f06.appspot.com',
-    measurementId: 'G-2R3PB1MMQ7',
+    apiKey: 'AIzaSyC1g1dJ0NnUrwP375lmbWNL3KXH0EWN8Ug',
+    appId: '1:760717812985:web:822cecadcb476dcc3f2e28',
+    messagingSenderId: '760717812985',
+    projectId: 'e-commerce-a95b3',
+    authDomain: 'e-commerce-a95b3.firebaseapp.com',
+    storageBucket: 'e-commerce-a95b3.appspot.com',
+    measurementId: 'G-41CESKM0YC',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyDS-TFPznUSEsLCZEnrdKth2NK2hod-x8k',
-    appId: '1:308636382575:android:a10732ac0c617e0282249a',
-    messagingSenderId: '308636382575',
-    projectId: 'e-commerce-e9f06',
-    storageBucket: 'e-commerce-e9f06.appspot.com',
+    apiKey: 'AIzaSyBqYlbZwFhQ65U0bJdqpx3WJ_3D9gx23NA',
+    appId: '1:760717812985:android:944ee4eef7922c813f2e28',
+    messagingSenderId: '760717812985',
+    projectId: 'e-commerce-a95b3',
+    storageBucket: 'e-commerce-a95b3.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyCxi-X86WiQex6ywZzeYRsIUtaFxrXR9SQ',
-    appId: '1:308636382575:ios:f7b23b8066e2c6ee82249a',
-    messagingSenderId: '308636382575',
-    projectId: 'e-commerce-e9f06',
-    storageBucket: 'e-commerce-e9f06.appspot.com',
+    apiKey: 'AIzaSyCdWglGqYEsetTCIxLrsPq0WeFAkXiQpBg',
+    appId: '1:760717812985:ios:eba019574588b9a63f2e28',
+    messagingSenderId: '760717812985',
+    projectId: 'e-commerce-a95b3',
+    storageBucket: 'e-commerce-a95b3.appspot.com',
+    androidClientId: '760717812985-j3olo9a6i4043ca3e87fla297rg7v8jl.apps.googleusercontent.com',
+    iosClientId: '760717812985-kbnfi5uid37jdfm14e1kl0vggs4a5m2r.apps.googleusercontent.com',
     iosBundleId: 'com.example.eCommerceApp',
   );
 }

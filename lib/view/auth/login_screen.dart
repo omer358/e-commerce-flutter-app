@@ -3,9 +3,11 @@ import 'package:e_commerce_app/view/widgets/custom_button.dart';
 import 'package:e_commerce_app/view/widgets/custom_button_social.dart';
 import 'package:e_commerce_app/view/widgets/custom_text.dart';
 import 'package:e_commerce_app/view/widgets/custom_text_form_field.dart';
+import 'package:e_commerce_app/view_model/auth_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends GetWidget<AuthViewModel> {
   const LoginScreen({super.key});
 
   @override
@@ -87,7 +89,9 @@ class LoginScreen extends StatelessWidget {
               height: 40,
             ),
             CustomButtonSocial(
-              onPressed: () {},
+              onPressed: () {
+                controller.googleSignInMethod();
+              },
               imageName: "assets/images/google.png",
               text: "Sign in with google",
             ),
