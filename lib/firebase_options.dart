@@ -47,31 +47,31 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyC1g1dJ0NnUrwP375lmbWNL3KXH0EWN8Ug',
-    appId: '1:760717812985:web:822cecadcb476dcc3f2e28',
-    messagingSenderId: '760717812985',
-    projectId: 'e-commerce-a95b3',
-    authDomain: 'e-commerce-a95b3.firebaseapp.com',
-    storageBucket: 'e-commerce-a95b3.appspot.com',
-    measurementId: 'G-41CESKM0YC',
+    apiKey: 'AIzaSyDLpP5sTo4C2P1CuvxchKtN78UhJ3r6InE',
+    appId: '1:724239432086:web:265e25b218a55a7f87c5b7',
+    messagingSenderId: '724239432086',
+    projectId: 'e-commerce-fbb2e',
+    authDomain: 'e-commerce-fbb2e.firebaseapp.com',
+    storageBucket: 'e-commerce-fbb2e.appspot.com',
+    measurementId: 'G-T963KHX3LR',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBqYlbZwFhQ65U0bJdqpx3WJ_3D9gx23NA',
-    appId: '1:760717812985:android:944ee4eef7922c813f2e28',
-    messagingSenderId: '760717812985',
-    projectId: 'e-commerce-a95b3',
-    storageBucket: 'e-commerce-a95b3.appspot.com',
+    apiKey: 'AIzaSyC7vRpxtqT9A-NuU07Cv7auMTrya13OKeg',
+    appId: '1:724239432086:android:6308a10c7703975d87c5b7',
+    messagingSenderId: '724239432086',
+    projectId: 'e-commerce-fbb2e',
+    storageBucket: 'e-commerce-fbb2e.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyCdWglGqYEsetTCIxLrsPq0WeFAkXiQpBg',
-    appId: '1:760717812985:ios:eba019574588b9a63f2e28',
-    messagingSenderId: '760717812985',
-    projectId: 'e-commerce-a95b3',
-    storageBucket: 'e-commerce-a95b3.appspot.com',
-    androidClientId: '760717812985-j3olo9a6i4043ca3e87fla297rg7v8jl.apps.googleusercontent.com',
-    iosClientId: '760717812985-kbnfi5uid37jdfm14e1kl0vggs4a5m2r.apps.googleusercontent.com',
+    apiKey: 'AIzaSyBobZv62cjIrZL1-lYGWAVwnNxKZy485j0',
+    appId: '1:724239432086:ios:7b7e6f2cf712d12587c5b7',
+    messagingSenderId: '724239432086',
+    projectId: 'e-commerce-fbb2e',
+    storageBucket: 'e-commerce-fbb2e.appspot.com',
+    androidClientId: '724239432086-nhkf0uj7jv7sf9le1mg7l8lid3m33gfl.apps.googleusercontent.com',
+    iosClientId: '724239432086-cmnljq6u4gn01uu7db94u7ka4emu34cv.apps.googleusercontent.com',
     iosBundleId: 'com.example.eCommerceApp',
   );
 }

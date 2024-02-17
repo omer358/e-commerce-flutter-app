@@ -67,6 +67,19 @@ class AuthViewModel extends GetxController {
           colorText: Colors.black, snackPosition: SnackPosition.BOTTOM);
     }
   }
+
+  void createAccountWithEmailAndPassword() async {
+    try {
+      await _firebaseAuth.createUserWithEmailAndPassword(
+          email: email, password: password);
+      Get.offAll(const HomeScreen());
+    } catch (e) {
+      print(e);
+      Get.snackbar("Error Creating Account", e.toString(),
+          colorText: Colors.black, snackPosition: SnackPosition.BOTTOM);
+    }
+  }
+
   void signOut() async{
     _firebaseAuth.signOut();
     Get.offAll(()=> LoginScreen());
