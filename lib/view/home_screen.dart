@@ -16,8 +16,8 @@ class HomeScreen extends GetWidget<AuthViewModel> {
           }, icon: const Icon(Icons.logout)),
         ],
       ),
-      body: const Center(
-        child: Text("Welcome"),
+      body:  Center(
+        child: Text("Welcome!\n ${controller.user}"),
       ),
     );
   }

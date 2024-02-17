@@ -1,4 +1,5 @@
 import 'package:e_commerce_app/constants.dart';
+import 'package:e_commerce_app/view/auth/register_screen.dart';
 import 'package:e_commerce_app/view/widgets/custom_button.dart';
 import 'package:e_commerce_app/view/widgets/custom_button_social.dart';
 import 'package:e_commerce_app/view/widgets/custom_text.dart';
@@ -9,7 +10,7 @@ import 'package:get/get.dart';
 
 class LoginScreen extends GetWidget<AuthViewModel> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-   LoginScreen({super.key});
+  LoginScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -29,14 +30,22 @@ class LoginScreen extends GetWidget<AuthViewModel> {
             key: _formKey,
             child: Column(
               children: [
-                const Row(
+                Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    CustomText(text: "Welcome", fontSize: 30),
-                    CustomText(
-                      text: "Sign Up",
-                      fontSize: 18,
-                      color: primaryColor,
+                    const CustomText(text: "Welcome", fontSize: 30),
+                    InkWell(
+                      onTap: () {
+                        Get.to(RegisterScreen());
+                      },
+                      child: const Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: CustomText(
+                          text: "Sign Up",
+                          fontSize: 18,
+                          color: primaryColor,
+                        ),
+                      ),
                     ),
                   ],
                 ),
@@ -58,7 +67,7 @@ class LoginScreen extends GetWidget<AuthViewModel> {
                     controller.email = value!;
                   },
                   onValidate: (value) {
-                    if(value == null){
+                    if (value == null) {
                       print("ERROR");
                     }
                   },
@@ -73,7 +82,7 @@ class LoginScreen extends GetWidget<AuthViewModel> {
                     controller.password = value!;
                   },
                   onValidate: (value) {
-                    if(value == null){
+                    if (value == null) {
                       print("PASSWORD ERROR");
                     }
                   },
@@ -92,11 +101,10 @@ class LoginScreen extends GetWidget<AuthViewModel> {
                 CustomButton(
                   text: 'LOGIN',
                   onPressed: () {
-                    if(_formKey.currentState!.validate()){
+                    if (_formKey.currentState!.validate()) {
                       _formKey.currentState?.save();
                       controller.signInWithEmailAndPassword();
                     }
-
                   },
                 ),
                 const SizedBox(

@@ -10,7 +10,7 @@ class ControlScreen extends GetWidget<AuthViewModel> {
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      return (Get.find<AuthViewModel>().user != null)
+      return (controller.user != null)
           ? const HomeScreen()
           : LoginScreen();
     });
