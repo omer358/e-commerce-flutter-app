@@ -1,4 +1,7 @@
+import 'package:e_commerce_app/view/auth/login_screen.dart';
+import 'package:e_commerce_app/view/home_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_login_facebook/flutter_login_facebook.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -7,11 +10,16 @@ class AuthViewModel extends GetxController {
   final GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['email']);
   final FacebookLogin _facebookLogin = FacebookLogin();
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+  late String email, password, name;
+
+  final Rx<User?> _user = Rx<User?>(null);
+  String? get user => _user.value?.email;
 
   @override
   void onInit() {
     // TODO: implement onInit
     super.onInit();
+    _user.bindStream(_firebaseAuth.userChanges());
   }
 
   @override
@@ -30,11 +38,12 @@ class AuthViewModel extends GetxController {
     final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
     print(googleUser);
     GoogleSignInAuthentication googleAuth = await googleUser!.authentication;
-    final AuthCredential credential=  GoogleAuthProvider.credential(
+    final AuthCredential credential = GoogleAuthProvider.credential(
       idToken: googleAuth.idToken,
       accessToken: googleAuth.accessToken,
     );
     await _firebaseAuth.signInWithCredential(credential);
+    Get.offAll(const HomeScreen());
   }
 
   void facebookSignMethod() async {
@@ -45,5 +54,21 @@ class AuthViewModel extends GetxController {
       final faceCredentials = FacebookAuthProvider.credential(accessToken!);
       await _firebaseAuth.signInWithCredential(faceCredentials);
     }
+  }
+
+  void signInWithEmailAndPassword() async {
+    try {
+      await _firebaseAuth.signInWithEmailAndPassword(
+          email: email, password: password);
+      Get.offAll(const HomeScreen());
+    } catch (e) {
+      print(e);
+      Get.snackbar("Error Login Account", e.toString(),
+          colorText: Colors.black, snackPosition: SnackPosition.BOTTOM);
+    }
+  }
+  void signOut() async{
+    _firebaseAuth.signOut();
+    Get.offAll(()=> LoginScreen());
   }
 }
