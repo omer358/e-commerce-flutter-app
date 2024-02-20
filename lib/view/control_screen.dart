@@ -11,7 +11,7 @@ class ControlScreen extends GetWidget<AuthViewModel> {
   Widget build(BuildContext context) {
     return Obx(() {
       return (controller.user != null)
-          ? const HomeScreen()
+          ? HomeScreen()
           : LoginScreen();
     });
   }

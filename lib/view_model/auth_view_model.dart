@@ -50,7 +50,7 @@ class AuthViewModel extends GetxController {
     await _firebaseAuth.signInWithCredential(credential).then(
           (user) {
             saveUser(user);
-            Get.offAll(const HomeScreen());
+            Get.offAll(HomeScreen());
           },
         );
 
@@ -64,7 +64,7 @@ class AuthViewModel extends GetxController {
       final faceCredentials = FacebookAuthProvider.credential(accessToken!);
       await _firebaseAuth.signInWithCredential(faceCredentials).then((user) {
         saveUser(user);
-        Get.offAll(const HomeScreen());
+        Get.offAll(HomeScreen());
       });
     }
   }
@@ -73,7 +73,7 @@ class AuthViewModel extends GetxController {
     try {
       await _firebaseAuth.signInWithEmailAndPassword(
           email: email, password: password);
-      Get.offAll(const HomeScreen());
+      Get.offAll(HomeScreen());
     } catch (e) {
       log("Signing with google has failed: $e");
       Get.snackbar("Error Login Account", e.toString(),
@@ -87,7 +87,7 @@ class AuthViewModel extends GetxController {
           .createUserWithEmailAndPassword(email: email, password: password)
           .then((user) async {
         await saveUser(user);
-        Get.offAll(const HomeScreen());
+        Get.offAll(HomeScreen());
       });
     } catch (e) {
       log(e.toString());
