@@ -24,6 +24,14 @@ if (flutterVersionName == null) {
 }
 
 android {
+    signingConfigs{
+        debuge{
+            keyAlias 'e-commerce-alias'
+            keyPassword '1029384756'
+            storeFile file('home/omer358/Documents/keystore_files/e_commerce.keystore')
+            storePassword '1029384756'
+        }
+    }
     namespace "com.example.e_commerce_app"
     compileSdkVersion flutter.compileSdkVersion
     ndkVersion flutter.ndkVersion
@@ -55,7 +63,7 @@ android {
     }
 
     buildTypes {
-        release {
+        debuge {
             // TODO: Add your own signing config for the release build.
             // Signing with the debug keys for now, so `flutter run --release` works.
             signingConfig signingConfigs.debug

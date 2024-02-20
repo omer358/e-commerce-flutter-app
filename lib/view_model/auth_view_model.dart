@@ -1,3 +1,7 @@
+import 'dart:developer';
+
+import 'package:e_commerce_app/model/user_model.dart';
+import 'package:e_commerce_app/service/firestore_user.dart';
 import 'package:e_commerce_app/view/auth/login_screen.dart';
 import 'package:e_commerce_app/view/home_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -13,6 +17,7 @@ class AuthViewModel extends GetxController {
   late String email, password, name;
 
   final Rx<User?> _user = Rx<User?>(null);
+
   String? get user => _user.value?.email;
 
   @override
@@ -42,8 +47,13 @@ class AuthViewModel extends GetxController {
       idToken: googleAuth.idToken,
       accessToken: googleAuth.accessToken,
     );
-    await _firebaseAuth.signInWithCredential(credential);
-    Get.offAll(const HomeScreen());
+    await _firebaseAuth.signInWithCredential(credential).then(
+          (user) {
+            saveUser(user);
+            Get.offAll(const HomeScreen());
+          },
+        );
+
   }
 
   void facebookSignMethod() async {
@@ -52,7 +62,10 @@ class AuthViewModel extends GetxController {
     final accessToken = result.accessToken?.token;
     if (result.status == FacebookLoginStatus.success) {
       final faceCredentials = FacebookAuthProvider.credential(accessToken!);
-      await _firebaseAuth.signInWithCredential(faceCredentials);
+      await _firebaseAuth.signInWithCredential(faceCredentials).then((user) {
+        saveUser(user);
+        Get.offAll(const HomeScreen());
+      });
     }
   }
 
@@ -62,7 +75,7 @@ class AuthViewModel extends GetxController {
           email: email, password: password);
       Get.offAll(const HomeScreen());
     } catch (e) {
-      print(e);
+      log("Signing with google has failed: $e");
       Get.snackbar("Error Login Account", e.toString(),
           colorText: Colors.black, snackPosition: SnackPosition.BOTTOM);
     }
@@ -70,18 +83,30 @@ class AuthViewModel extends GetxController {
 
   void createAccountWithEmailAndPassword() async {
     try {
-      await _firebaseAuth.createUserWithEmailAndPassword(
-          email: email, password: password);
-      Get.offAll(const HomeScreen());
+      await _firebaseAuth
+          .createUserWithEmailAndPassword(email: email, password: password)
+          .then((user) async {
+        await saveUser(user);
+        Get.offAll(const HomeScreen());
+      });
     } catch (e) {
-      print(e);
+      log(e.toString());
       Get.snackbar("Error Creating Account", e.toString(),
           colorText: Colors.black, snackPosition: SnackPosition.BOTTOM);
     }
   }
 
-  void signOut() async{
+  void signOut() async {
     _firebaseAuth.signOut();
-    Get.offAll(()=> LoginScreen());
+    Get.offAll(() => LoginScreen());
+  }
+
+  Future<void> saveUser(UserCredential user) async {
+    await FireStoreUser().addUserToFileStore(UserModel(
+        userId: user.user!.uid,
+        email: email,
+        name: name ?? user.user?.displayName,
+    ),
+    );
   }
 }

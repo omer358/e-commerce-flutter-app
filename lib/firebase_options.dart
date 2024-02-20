@@ -17,13 +17,19 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      return web;
+      throw UnsupportedError(
+        'DefaultFirebaseOptions have not been configured for web - '
+        'you can reconfigure this by running the FlutterFire CLI again.',
+      );
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
         return android;
       case TargetPlatform.iOS:
-        return ios;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for ios - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.macOS:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for macos - '
@@ -46,32 +52,11 @@ class DefaultFirebaseOptions {
     }
   }
 
-  static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyDLpP5sTo4C2P1CuvxchKtN78UhJ3r6InE',
-    appId: '1:724239432086:web:265e25b218a55a7f87c5b7',
-    messagingSenderId: '724239432086',
-    projectId: 'e-commerce-fbb2e',
-    authDomain: 'e-commerce-fbb2e.firebaseapp.com',
-    storageBucket: 'e-commerce-fbb2e.appspot.com',
-    measurementId: 'G-T963KHX3LR',
-  );
-
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyC7vRpxtqT9A-NuU07Cv7auMTrya13OKeg',
     appId: '1:724239432086:android:6308a10c7703975d87c5b7',
     messagingSenderId: '724239432086',
     projectId: 'e-commerce-fbb2e',
     storageBucket: 'e-commerce-fbb2e.appspot.com',
-  );
-
-  static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyBobZv62cjIrZL1-lYGWAVwnNxKZy485j0',
-    appId: '1:724239432086:ios:7b7e6f2cf712d12587c5b7',
-    messagingSenderId: '724239432086',
-    projectId: 'e-commerce-fbb2e',
-    storageBucket: 'e-commerce-fbb2e.appspot.com',
-    androidClientId: '724239432086-nhkf0uj7jv7sf9le1mg7l8lid3m33gfl.apps.googleusercontent.com',
-    iosClientId: '724239432086-cmnljq6u4gn01uu7db94u7ka4emu34cv.apps.googleusercontent.com',
-    iosBundleId: 'com.example.eCommerceApp',
   );
 }
