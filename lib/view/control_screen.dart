@@ -8,7 +8,9 @@ import 'package:get/get.dart';
 import '../constants.dart';
 
 class ControlScreen extends GetWidget<AuthViewModel> {
-  const ControlScreen({super.key});
+  Widget currentScreen = HomeScreen();
+
+  ControlScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

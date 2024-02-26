@@ -21,43 +21,46 @@ class HomeScreen extends GetWidget<AuthViewModel> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      bottomNavigationBar: bottomNavigationBar(),
-      body: Container(
-        padding: const EdgeInsets.only(top: 70, left: 20, right: 20),
-        child: Column(
-          children: [
-            _searchTextFormField(),
-            const SizedBox(
-              height: 30,
-            ),
-            const CustomText(text: "Categories", fontSize: 20),
-            const SizedBox(
-              height: 30,
-            ),
-            _listViewCategory(),
-            const SizedBox(
-              height: 30,
-            ),
-            const Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                CustomText(text: "Products", fontSize: 20),
-                CustomText(
-                  text: "See All",
-                  fontSize: 16,
-                  color: primaryColor,
+    return GetBuilder<HomeViewModel>(builder: (logic) {
+      return logic.loading.value
+          ? const Center(child: CircularProgressIndicator())
+          : Scaffold(
+              body: Container(
+                padding: const EdgeInsets.only(top: 70, left: 20, right: 20),
+                child: Column(
+                  children: [
+                    _searchTextFormField(),
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    const CustomText(text: "Categories", fontSize: 20),
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    _listViewCategory(),
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    const Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        CustomText(text: "Products", fontSize: 20),
+                        CustomText(
+                          text: "See All",
+                          fontSize: 16,
+                          color: primaryColor,
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    _listViewProducts(),
+                  ],
                 ),
-              ],
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            _listViewProducts(),
-          ],
-        ),
-      ),
-    );
+              ),
+            );
+    });
   }
 
   Widget _searchTextFormField() {
@@ -75,37 +78,40 @@ class HomeScreen extends GetWidget<AuthViewModel> {
   }
 
   Widget _listViewCategory() {
-    return Container(
-      height: 100,
-      child: ListView.separated(
-        scrollDirection: Axis.horizontal,
-        itemCount: names.length,
-        itemBuilder: (context, index) {
-          return Column(
-            children: [
-              Container(
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(50),
-                    color: Colors.grey.shade100),
-                height: 60,
-                width: 60,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Image.asset("assets/images/Icon_Mens Shoe.png"),
+    return GetBuilder<HomeViewModel>(builder: (controller) {
+      return Container(
+        height: 100,
+        child: ListView.separated(
+          scrollDirection: Axis.horizontal,
+          itemCount: controller.categoryModel.length,
+          itemBuilder: (context, index) {
+            return Column(
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(50),
+                      color: Colors.grey.shade100),
+                  height: 60,
+                  width: 60,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Image.network(controller.categoryModel[index].image),
+                  ),
                 ),
-              ),
-              const SizedBox(
-                height: 8,
-              ),
-              CustomText(text: names[index], fontSize: 14)
-            ],
-          );
-        },
-        separatorBuilder: (BuildContext context, int index) => const SizedBox(
-          width: 20,
+                const SizedBox(
+                  height: 8,
+                ),
+                CustomText(
+                    text: controller.categoryModel[index].name, fontSize: 14)
+              ],
+            );
+          },
+          separatorBuilder: (BuildContext context, int index) => const SizedBox(
+            width: 20,
+          ),
         ),
-      ),
-    );
+      );
+    });
   }
 
   _listViewProducts() {
@@ -158,70 +164,6 @@ class HomeScreen extends GetWidget<AuthViewModel> {
           width: 20,
         ),
       ),
-    );
-  }
-
-  Widget bottomNavigationBar() {
-    return GetBuilder<HomeViewModel>(
-      init: HomeViewModel(),
-      builder: (controller) {
-        return BottomNavigationBar(
-          items: [
-            BottomNavigationBarItem(
-              activeIcon: const Padding(
-                padding: EdgeInsets.only(top: 25.0),
-                child: Text(
-                  "Explore",
-                  style: TextStyle(color: primaryColor),
-                ),
-              ),
-              label: "",
-              icon: Padding(
-                padding: const EdgeInsets.only(top: 25.0),
-                child: Image.asset(
-                  "assets/images/Icon_Explore.png",
-                  fit: BoxFit.contain,
-                  width: 20,
-                ),
-              ),
-            ),
-            BottomNavigationBarItem(
-              activeIcon: const Padding(
-                padding: EdgeInsets.only(top: 25.0),
-                child: Text("Cart", style: TextStyle(color: primaryColor),),
-              ),
-              label: "",
-              icon: Padding(
-                padding: const EdgeInsets.only(top: 25.0),
-                child: Image.asset(
-                  "assets/images/Icon_Cart.png",
-                  fit: BoxFit.contain,
-                  width: 20,
-                ),
-              ),
-            ),
-            BottomNavigationBarItem(
-              activeIcon: const Padding(
-                padding: EdgeInsets.only(top: 25.0),
-                child: Text("Profile", style: TextStyle(color: primaryColor),),
-              ),
-              label: "",
-              icon: Padding(
-                padding: const EdgeInsets.only(top: 25.0),
-                child: Image.asset(
-                  "assets/images/Icon_User.png",
-                  fit: BoxFit.contain,
-                  width: 20,
-                ),
-              ),
-            ),
-          ],
-          currentIndex: controller.navigatorValue,
-          onTap: (index) {
-            controller.changeSelectedValue(index);
-          },
-        );
-      },
     );
   }
 }
