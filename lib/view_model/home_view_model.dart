@@ -1,6 +1,6 @@
 import 'dart:developer';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:e_commerce_app/service/home_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -14,8 +14,7 @@ class HomeViewModel extends GetxController {
   final List<CategoryModel> _categoryModel = [];
 
   List<CategoryModel> get categoryModel => _categoryModel;
-  final _categoryCollectionRef =
-      FirebaseFirestore.instance.collection("Categories");
+
 
   HomeViewModel() {
     getCategory();
@@ -23,9 +22,9 @@ class HomeViewModel extends GetxController {
 
   getCategory() async {
     _loading.value = true;
-    await _categoryCollectionRef.get().then((value) {
-      for (int i = 0; i < value.docs.length; i++) {
-        _categoryModel.add(CategoryModel.fromJson(value.docs[i].data()));
+    HomeService().getCategory().then((value) {
+      for (int i = 0; i < value.length; i++) {
+        _categoryModel.add(CategoryModel.fromJson(value[i].data() as Map<String, dynamic>));
         log(_categoryModel.length.toString());
         _loading.value = false;
       }
