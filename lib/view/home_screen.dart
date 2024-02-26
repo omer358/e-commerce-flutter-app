@@ -21,42 +21,45 @@ class HomeScreen extends GetWidget<AuthViewModel> {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<HomeViewModel>(builder: (logic) {
+    return GetBuilder<HomeViewModel>(
+        builder: (logic) {
       return logic.loading.value
           ? const Center(child: CircularProgressIndicator())
           : Scaffold(
-              body: Container(
-                padding: const EdgeInsets.only(top: 70, left: 20, right: 20),
-                child: Column(
-                  children: [
-                    _searchTextFormField(),
-                    const SizedBox(
-                      height: 30,
-                    ),
-                    const CustomText(text: "Categories", fontSize: 20),
-                    const SizedBox(
-                      height: 30,
-                    ),
-                    _listViewCategory(),
-                    const SizedBox(
-                      height: 30,
-                    ),
-                    const Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        CustomText(text: "Products", fontSize: 20),
-                        CustomText(
-                          text: "See All",
-                          fontSize: 16,
-                          color: primaryColor,
-                        ),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    _listViewProducts(),
-                  ],
+              body: SingleChildScrollView(
+                child: Container(
+                  padding: const EdgeInsets.only(top: 70, left: 20, right: 20),
+                  child: Column(
+                    children: [
+                      _searchTextFormField(),
+                      const SizedBox(
+                        height: 30,
+                      ),
+                      const CustomText(text: "Categories", fontSize: 20),
+                      const SizedBox(
+                        height: 30,
+                      ),
+                      _listViewCategory(),
+                      const SizedBox(
+                        height: 30,
+                      ),
+                      const Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          CustomText(text: "Products", fontSize: 20),
+                          CustomText(
+                            text: "See All",
+                            fontSize: 16,
+                            color: primaryColor,
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      _listViewProducts(),
+                    ],
+                  ),
                 ),
               ),
             );
@@ -115,55 +118,60 @@ class HomeScreen extends GetWidget<AuthViewModel> {
   }
 
   _listViewProducts() {
-    return Container(
-      height: 350,
-      child: ListView.separated(
-        scrollDirection: Axis.horizontal,
-        itemCount: names.length,
-        itemBuilder: (context, index) {
-          return SizedBox(
-            width: MediaQuery.of(context).size.width * .4,
-            child: Column(
-              children: [
-                SizedBox(
-                  width: MediaQuery.of(context).size.width * .4,
-                  height: 220,
-                  child: Image.asset(
-                    "assets/images/Image.png",
-                    fit: BoxFit.fill,
+    return GetBuilder<HomeViewModel>(builder: (controller) {
+      return Container(
+        height: 350,
+        child: ListView.separated(
+          scrollDirection: Axis.horizontal,
+          itemCount: controller.products.length,
+          itemBuilder: (context, index) {
+            return SizedBox(
+              width: MediaQuery.of(context).size.width * .4,
+              child: Column(
+                children: [
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * .4,
+                    height: 220,
+                    child: Image.network(
+                      controller.products[index].image,
+                      fit: BoxFit.fill,
+                    ),
                   ),
-                ),
-                const SizedBox(
-                  height: 8,
-                ),
-                const CustomText(
-                  text: "Leather Wristwatch",
-                  fontSize: 16,
-                ),
-                const SizedBox(
-                  height: 8,
-                ),
-                const CustomText(
-                  text: "Tag Heuer",
-                  fontSize: 14,
-                  color: Colors.grey,
-                ),
-                const SizedBox(
-                  height: 8,
-                ),
-                const CustomText(
-                  text: "\$750",
-                  fontSize: 14,
-                  color: primaryColor,
-                )
-              ],
-            ),
-          );
-        },
-        separatorBuilder: (BuildContext context, int index) => const SizedBox(
-          width: 20,
+                  const SizedBox(
+                    height: 8,
+                  ),
+                  CustomText(
+                    text: controller.products[index].name,
+                    fontSize: 16,
+                  ),
+                  const SizedBox(
+                    height: 8,
+                  ),
+                  Expanded(
+                    child: CustomText(
+                      text: controller.products[index].description,
+                      fontSize: 14,
+                      color: Colors.grey,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 8,
+                  ),
+                  CustomText(
+                    text: "${controller.products[index].price} \$",
+                    fontSize: 14,
+                    color: primaryColor,
+                    maxLines: 1,
+                  )
+                ],
+              ),
+            );
+          },
+          separatorBuilder: (BuildContext context, int index) => const SizedBox(
+            width: 20,
+          ),
         ),
-      ),
-    );
+      );
+    });
   }
 }
