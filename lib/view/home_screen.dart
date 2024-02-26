@@ -22,48 +22,49 @@ class HomeScreen extends GetWidget<AuthViewModel> {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<HomeViewModel>(
+        init: Get.find<HomeViewModel>(),
         builder: (logic) {
-      return logic.loading.value
-          ? const Center(child: CircularProgressIndicator())
-          : Scaffold(
-              body: SingleChildScrollView(
-                child: Container(
-                  padding: const EdgeInsets.only(top: 70, left: 20, right: 20),
-                  child: Column(
-                    children: [
-                      _searchTextFormField(),
-                      const SizedBox(
-                        height: 30,
-                      ),
-                      const CustomText(text: "Categories", fontSize: 20),
-                      const SizedBox(
-                        height: 30,
-                      ),
-                      _listViewCategory(),
-                      const SizedBox(
-                        height: 30,
-                      ),
-                      const Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          CustomText(text: "Products", fontSize: 20),
-                          CustomText(
-                            text: "See All",
-                            fontSize: 16,
-                            color: primaryColor,
-                          ),
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      _listViewProducts(),
-                    ],
-                  ),
+          return logic.loading.value
+              ? const Center(child: CircularProgressIndicator())
+              : Scaffold(
+            body: SingleChildScrollView(
+              child: Container(
+                padding: const EdgeInsets.only(top: 70, left: 20, right: 20),
+                child: Column(
+                  children: [
+                    _searchTextFormField(),
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    const CustomText(text: "Categories", fontSize: 20),
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    _listViewCategory(),
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    const Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        CustomText(text: "Products", fontSize: 20),
+                        CustomText(
+                          text: "See All",
+                          fontSize: 16,
+                          color: primaryColor,
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    _listViewProducts(),
+                  ],
                 ),
               ),
-            );
-    });
+            ),
+          );
+        });
   }
 
   Widget _searchTextFormField() {
@@ -109,7 +110,8 @@ class HomeScreen extends GetWidget<AuthViewModel> {
               ],
             );
           },
-          separatorBuilder: (BuildContext context, int index) => const SizedBox(
+          separatorBuilder: (BuildContext context, int index) =>
+          const SizedBox(
             width: 20,
           ),
         ),
@@ -126,11 +128,17 @@ class HomeScreen extends GetWidget<AuthViewModel> {
           itemCount: controller.products.length,
           itemBuilder: (context, index) {
             return SizedBox(
-              width: MediaQuery.of(context).size.width * .4,
+              width: MediaQuery
+                  .of(context)
+                  .size
+                  .width * .4,
               child: Column(
                 children: [
                   SizedBox(
-                    width: MediaQuery.of(context).size.width * .4,
+                    width: MediaQuery
+                        .of(context)
+                        .size
+                        .width * .4,
                     height: 220,
                     child: Image.network(
                       controller.products[index].image,
@@ -167,7 +175,8 @@ class HomeScreen extends GetWidget<AuthViewModel> {
               ),
             );
           },
-          separatorBuilder: (BuildContext context, int index) => const SizedBox(
+          separatorBuilder: (BuildContext context, int index) =>
+          const SizedBox(
             width: 20,
           ),
         ),
