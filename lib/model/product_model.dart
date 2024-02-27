@@ -1,5 +1,9 @@
+import 'package:e_commerce_app/utils/extensions.dart';
+import 'package:flutter/material.dart';
+
 class ProductModel {
-  final String name, image, description, price, color, size;
+  final String name, image, description, price, size;
+  final Color color;
 
   ProductModel(
       {required this.name,
@@ -15,7 +19,7 @@ class ProductModel {
       image: json['image'],
       description: json['description'],
       price: json['price'],
-      color: json['color'],
+      color: HexColor.fromHex(json['color']),
       size: json['size'],
     );
   }

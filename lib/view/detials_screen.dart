@@ -1,4 +1,6 @@
+import 'package:e_commerce_app/constants.dart';
 import 'package:e_commerce_app/model/product_model.dart';
+import 'package:e_commerce_app/view/widgets/custom_button.dart';
 import 'package:e_commerce_app/view/widgets/custom_text.dart';
 import 'package:flutter/material.dart';
 
@@ -10,67 +12,117 @@ class DetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Container(
-          child: Column(
-            children: [
-              Container(
-                width: MediaQuery.of(context).size.width,
-                height: 270,
-                child: Image.network(
-                  model.image,
-                  fit: BoxFit.fill,
+      body: Container(
+        child: Column(
+          children: [
+            Container(
+              width: MediaQuery.of(context).size.width,
+              height: 270,
+              child: Image.network(
+                model.image,
+                fit: BoxFit.fill,
+              ),
+            ),
+            const SizedBox(
+              height: 15,
+            ),
+            Expanded(
+              child: SingleChildScrollView(
+                child: Container(
+                  padding: const EdgeInsets.all(18),
+                  child: Column(
+                    children: [
+                      CustomText(text: model.name, fontSize: 26),
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.all(16),
+                            width: MediaQuery.of(context).size.width * .40,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
+                                border: Border.all(color: Colors.grey)),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                const CustomText(text: "Size", fontSize: 16),
+                                CustomText(text: model.size, fontSize: 16),
+                              ],
+                            ),
+                          ),
+                          Container(
+                            padding: const EdgeInsets.all(16),
+                            width: MediaQuery.of(context).size.width * .40,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
+                                border: Border.all(color: Colors.grey)),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                const CustomText(text: "Color", fontSize: 16),
+                                Container(
+                                  width: 30,
+                                  height: 25,
+                                  padding: const EdgeInsets.all(12),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    border: Border.all(color: Colors.grey),
+                                    color: model.color,
+                                  ),
+                                )
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      const CustomText(text: "Details", fontSize: 18),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      CustomText(
+                        text: model.description,
+                        fontSize: 18,
+                        height: 2.5,
+                      ),
+                    ],
+                  ),
                 ),
               ),
-              const SizedBox(
-                height: 15,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(30.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    children: [
+                      const CustomText(
+                        text: "PRICE",
+                        fontSize: 18,
+                        color: Colors.grey,
+                      ),
+                      CustomText(
+                        text: "\$${model.price}",
+                        fontSize: 18,
+                        color: primaryColor,
+                      ),
+                    ],
+                  ),
+                  Container(
+                      padding: const EdgeInsets.all(20),
+                      width: 180,
+                      height: 100,
+                      child: CustomButton(text: "ADD", onPressed: () {})),
+                ],
               ),
-              Container(
-                padding: const EdgeInsets.all(18),
-                child: Column(
-                  children: [
-                    CustomText(text: model.name, fontSize: 26),
-                    const SizedBox(
-                      height: 15,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.all(16),
-                          width: MediaQuery.of(context).size.width * .40,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              border: Border.all(color: Colors.grey)),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              const CustomText(text: "Size", fontSize: 16),
-                              CustomText(text: model.size, fontSize: 16),
-                            ],
-                          ),
-                        ),
-                        Container(
-                          padding: const EdgeInsets.all(16),
-                          width: MediaQuery.of(context).size.width * .40,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              border: Border.all(color: Colors.grey)),
-                          child: const Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                               CustomText(text: "Color", fontSize: 16),
-                              // CustomText(text: model.color, fontSize: 16),
-                            ],
-                          ),
-                        )
-                      ],
-                    )
-                  ],
-                ),
-              ),
-            ],
-          ),
+            )
+          ],
         ),
       ),
     );
