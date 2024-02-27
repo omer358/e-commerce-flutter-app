@@ -23,6 +23,7 @@ class MyApp extends StatelessWidget {
       initialBinding: Binding(),
       title: 'Flutter Demo',
       theme: ThemeData(
+        fontFamily: 'sourceSans',
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
