@@ -1,26 +1,11 @@
 import 'package:e_commerce_app/constants.dart';
 import 'package:e_commerce_app/view/widgets/custom_button.dart';
 import 'package:e_commerce_app/view/widgets/custom_text.dart';
+import 'package:e_commerce_app/view_model/cart_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class CartScreen extends StatelessWidget {
-  final List<String> names = <String>[
-    "pesa",
-    "pesa",
-    "pesa",
-    "pesa",
-    "pesa",
-  ];
-  final List<String> images = <String>[
-    'assets/images/chair.png',
-    'assets/images/chair.png',
-    'assets/images/chair.png',
-    'assets/images/chair.png',
-    'assets/images/chair.png',
-  ];
-
-  final List<int> prices = <int>[170, 203, 300, 440, 520];
-
   CartScreen({super.key});
 
   @override
@@ -29,80 +14,93 @@ class CartScreen extends StatelessWidget {
       body: Column(
         children: [
           Expanded(
-            child: Container(
-              child: ListView.separated(
-                  itemCount: names.length,
-                  itemBuilder: (context, index) => Container(
-                      height: 140,
-                      child: Row(
-                        children: [
-                          SizedBox(
+            child: GetBuilder<CartViewModel>(
+                init: Get.find<CartViewModel>(),
+                builder: (controller) {
+                  return Container(
+                    child: ListView.separated(
+                        itemCount: controller.cartProductModel.length,
+                        itemBuilder: (context, index) => SizedBox(
                             height: 140,
-                            child: Image.asset(
-                              images[index],
-                              fit: BoxFit.fill,
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 20),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                            child: Row(
                               children: [
-                                CustomText(text: names[index], fontSize: 24),
-                                const SizedBox(
-                                  height: 10,
+                                SizedBox(
+                                  height: 140,
+                                  child: Image.network(
+                                    controller
+                                        .cartProductModel[index].image,
+                                    fit: BoxFit.fill,
+                                  ),
                                 ),
-                                CustomText(
-                                  text: "\$ ${prices[index].toString()}",
-                                  fontSize: 16,
-                                  color: primaryColor,
-                                ),
-                                const SizedBox(
-                                  height: 20,
-                                ),
-                                Container(
-                                  width: 120,
-                                  height: 40,
-                                  color: Colors.grey.shade200,
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 20),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
-                                      const Icon(
-                                        Icons.add,
-                                        color: Colors.black,
+                                      CustomText(
+                                          text: controller
+                                              .cartProductModel[index]
+                                              .name,
+                                          fontSize: 24),
+                                      const SizedBox(
+                                        height: 10,
+                                      ),
+                                      CustomText(
+                                        text:
+                                            "\$ ${controller.cartProductModel[index].price.toString()}",
+                                        fontSize: 16,
+                                        color: primaryColor,
                                       ),
                                       const SizedBox(
-                                        width: 20,
-                                      ),
-                                      const CustomText(
-                                        text: "1",
-                                        fontSize: 20,
-                                        alignment: Alignment.center,
-                                        color: Colors.black,
-                                      ),
-                                      const SizedBox(
-                                        width: 20,
+                                        height: 20,
                                       ),
                                       Container(
-                                        padding: const EdgeInsets.only(bottom: 20),
-                                        child: const Icon(
-                                          Icons.minimize,
-                                          color: Colors.black,
+                                        width: 120,
+                                        height: 40,
+                                        color: Colors.grey.shade200,
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            const Icon(
+                                              Icons.add,
+                                              color: Colors.black,
+                                            ),
+                                            const SizedBox(
+                                              width: 20,
+                                            ),
+                                            const CustomText(
+                                              text: "1",
+                                              fontSize: 20,
+                                              alignment: Alignment.center,
+                                              color: Colors.black,
+                                            ),
+                                            const SizedBox(
+                                              width: 20,
+                                            ),
+                                            Container(
+                                              padding: const EdgeInsets.only(
+                                                  bottom: 20),
+                                              child: const Icon(
+                                                Icons.minimize,
+                                                color: Colors.black,
+                                              ),
+                                            ),
+                                          ],
                                         ),
-                                      ),
+                                      )
                                     ],
                                   ),
                                 )
                               ],
-                            ),
-                          )
-                        ],
-                      )),
-                  separatorBuilder: (BuildContext context, int index) =>
-                      const SizedBox(
-                        height: 12,
-                      )),
-            ),
+                            )),
+                        separatorBuilder: (BuildContext context, int index) =>
+                            const SizedBox(
+                              height: 12,
+                            )),
+                  );
+                }),
           ),
           Padding(
             padding: EdgeInsets.all(10),
@@ -110,13 +108,15 @@ class CartScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Column(
-                  children:  [
+                  children: [
                     const CustomText(
                       text: "TOTAL",
                       fontSize: 22,
                       color: Colors.grey,
                     ),
-                    const SizedBox(height: 18,),
+                    const SizedBox(
+                      height: 18,
+                    ),
                     CustomText(
                       text: "\$2000",
                       fontSize: 18,

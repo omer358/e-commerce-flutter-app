@@ -34,4 +34,10 @@ class ProductModel {
       'color': color,
     };
   }
+
+  @override
+  String toString() {
+    // TODO: implement toString
+    return "($name, $image, $description, $price, $size, $color)" ;
+  }
 }

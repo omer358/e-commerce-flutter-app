@@ -19,7 +19,8 @@ class HomeViewModel extends GetxController {
 
   List<ProductModel> get products => _products;
 
-  HomeViewModel() {
+  @override
+  void onInit() {
     getCategory();
     getBestSellingProducts();
   }
