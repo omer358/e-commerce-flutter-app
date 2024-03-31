@@ -6,6 +6,7 @@ import 'package:e_commerce_app/view/widgets/custom_button.dart';
 import 'package:e_commerce_app/view/widgets/custom_text.dart';
 import 'package:e_commerce_app/view_model/cart_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
 
 import '../model/cart_product_model.dart';
@@ -18,6 +19,7 @@ class DetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     log(model.toString());
+    log("test");
     return Scaffold(
       body: Container(
         child: Column(
@@ -121,25 +123,28 @@ class DetailsScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                  GetBuilder<CartViewModel>(builder: (controller) {
-                    return Container(
-                      padding: const EdgeInsets.all(20),
-                      width: 180,
-                      height: 100,
-                      child: CustomButton(
-                        text: "ADD",
-                        onPressed: () {
-                          controller.addProduct(
-                            CartProductModel(
-                                name: model.name,
-                                image: model.image,
-                                price: model.price,
-                                quantity: 1),
-                          );
-                        },
-                      ),
-                    );
-                  }),
+                  GetBuilder<CartViewModel>(
+                      init: Get.find<CartViewModel>(),
+                      builder: (controller) {
+                        return Container(
+                          padding: const EdgeInsets.all(20),
+                          width: 180,
+                          height: 100,
+                          child: CustomButton(
+                            text: "ADD",
+                            onPressed: () {
+                              controller.addProduct(
+                                CartProductModel(
+                                    productId: model.productId,
+                                    name: model.name,
+                                    image: model.image,
+                                    price: model.price,
+                                    quantity: 1),
+                              );
+                            },
+                          ),
+                        );
+                      }),
                 ],
               ),
             )

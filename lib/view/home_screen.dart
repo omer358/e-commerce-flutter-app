@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:e_commerce_app/constants.dart';
 import 'package:e_commerce_app/view/widgets/custom_text.dart';
 import 'package:e_commerce_app/view_model/auth_view_model.dart';
@@ -8,18 +10,7 @@ import 'package:get/get.dart';
 import 'detials_screen.dart';
 
 class HomeScreen extends GetWidget<AuthViewModel> {
-  final List<String> names = [
-    "Men",
-    "Women",
-    "Devices",
-    "Games",
-    "Gadgets",
-    "S",
-    "S",
-    "S",
-  ];
-
-  HomeScreen({super.key});
+  const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -131,9 +122,10 @@ class HomeScreen extends GetWidget<AuthViewModel> {
           itemBuilder: (context, index) {
             return GestureDetector(
               onTap: () {
-                Get.to(DetailsScreen(
-                  model: controller.products[index],
-                ));
+                log(controller.products[index].toString());
+                Get.to(() => DetailsScreen(
+                      model: controller.products[index],
+                    ));
               },
               child: SizedBox(
                 width: MediaQuery.of(context).size.width * .4,
