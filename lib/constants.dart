@@ -8,3 +8,5 @@ const String columnImage = "image";
 const String columnPrice = "price";
 const String columnQuantity = "quantity";
 const primaryColor = Color.fromRGBO(0, 197, 105, 1);
+
+const cachedUserData = 'cachedUserData';

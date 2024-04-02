@@ -2,8 +2,9 @@ import 'dart:developer';
 
 import 'package:e_commerce_app/model/user_model.dart';
 import 'package:e_commerce_app/service/firestore_user.dart';
+import 'package:e_commerce_app/utils/local_storage_data.dart';
 import 'package:e_commerce_app/view/auth/login_screen.dart';
-import 'package:e_commerce_app/view/home_screen.dart';
+import 'package:e_commerce_app/view/control_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_login_facebook/flutter_login_facebook.dart';
@@ -14,11 +15,13 @@ class AuthViewModel extends GetxController {
   final GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['email']);
   final FacebookLogin _facebookLogin = FacebookLogin();
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
-  late String email, password, name;
+  String? email, password, name;
 
   final Rx<User?> _user = Rx<User?>(null);
 
   String? get user => _user.value?.email;
+
+  final LocalStorageData _localStorageData = Get.find();
 
   @override
   void onInit() {
@@ -41,19 +44,12 @@ class AuthViewModel extends GetxController {
 
   void googleSignInMethod() async {
     final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
-    print(googleUser);
     GoogleSignInAuthentication googleAuth = await googleUser!.authentication;
-    final AuthCredential credential = GoogleAuthProvider.credential(
+    final AuthCredential googleCredential = GoogleAuthProvider.credential(
       idToken: googleAuth.idToken,
       accessToken: googleAuth.accessToken,
     );
-    await _firebaseAuth.signInWithCredential(credential).then(
-          (user) {
-            saveUser(user);
-            Get.offAll(HomeScreen());
-          },
-        );
-
+    signInWithCredentialAndSaveUser(googleCredential);
   }
 
   void facebookSignMethod() async {
@@ -62,32 +58,41 @@ class AuthViewModel extends GetxController {
     final accessToken = result.accessToken?.token;
     if (result.status == FacebookLoginStatus.success) {
       final faceCredentials = FacebookAuthProvider.credential(accessToken!);
-      await _firebaseAuth.signInWithCredential(faceCredentials).then((user) {
-        saveUser(user);
-        Get.offAll(HomeScreen());
-      });
+      await signInWithCredentialAndSaveUser(faceCredentials);
     }
+  }
+
+  Future<void> signInWithCredentialAndSaveUser(
+      AuthCredential faceCredentials) async {
+    UserCredential userCredential =
+        await _firebaseAuth.signInWithCredential(faceCredentials);
+    saveUser(userCredential);
+    Get.offAll(ControlScreen());
   }
 
   void signInWithEmailAndPassword() async {
     try {
-      await _firebaseAuth.signInWithEmailAndPassword(
-          email: email, password: password);
-      Get.offAll(HomeScreen());
+      final userCredential = await _firebaseAuth.signInWithEmailAndPassword(
+        email: email!,
+        password: password!,
+      );
+
+      var userData = await FireStoreUser().getCurrentUser(userCredential.user!.uid);
+      setUser(UserModel.fromJson(userData.data()  as Map<String, dynamic>));
+
+      Get.offAll(ControlScreen());
     } catch (e) {
-      log("Signing with google has failed: $e");
-      Get.snackbar("Error Login Account", e.toString(),
-          colorText: Colors.black, snackPosition: SnackPosition.BOTTOM);
+      _handleSignInError(e);
     }
   }
 
   void createAccountWithEmailAndPassword() async {
     try {
-      await _firebaseAuth
-          .createUserWithEmailAndPassword(email: email, password: password)
+      _firebaseAuth
+          .createUserWithEmailAndPassword(email: email!, password: password!)
           .then((user) async {
         await saveUser(user);
-        Get.offAll(HomeScreen());
+        Get.offAll(ControlScreen());
       });
     } catch (e) {
       log(e.toString());
@@ -102,11 +107,45 @@ class AuthViewModel extends GetxController {
   }
 
   Future<void> saveUser(UserCredential user) async {
-    await FireStoreUser().addUserToFileStore(UserModel(
-        userId: user.user!.uid,
-        email: email,
-        name: name ?? user.user?.displayName,
-    ),
+    var userModel = UserModel(
+      userId: user.user!.uid,
+      email: email!,
+      name: name ?? user.user?.displayName,
     );
+    await FireStoreUser().addUserToFileStore(
+      userModel,
+    );
+    setUser(userModel);
+  }
+
+  void setUser(UserModel userModel) async {
+    _localStorageData.setUser(userModel);
+  }
+
+  void _handleSignInError(dynamic error) {
+    String errorMessage = _getErrorMessage(error);
+
+    Get.snackbar(
+      "Error Login Account",
+      errorMessage,
+      colorText: Colors.black,
+      snackPosition: SnackPosition.BOTTOM,
+    );
+  }
+
+  String _getErrorMessage(dynamic error) {
+    if (error is FirebaseAuthException) {
+      switch (error.code) {
+        case 'user-not-found':
+          return 'The email address is not registered.';
+        case 'wrong-password':
+          return 'Invalid password. Please try again.';
+        default:
+          return 'An error occurred during sign-in. Please try again later.';
+      }
+    } else {
+      log("Signing with email and password has failed: $error");
+      return 'An unexpected error occurred. Please try again later.';
+    }
   }
 }

@@ -4,7 +4,7 @@ class UserModel {
   String? name;
   String? pic;
 
-  UserModel({required this.userId, required this.email, required this.name, this.pic});
+  UserModel({required this.userId, required this.email,  this.name, this.pic});
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
     return UserModel(

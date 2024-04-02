@@ -8,7 +8,7 @@ import 'package:get/get.dart';
 import '../constants.dart';
 
 class ControlScreen extends GetWidget<AuthViewModel> {
-  Widget currentScreen = HomeScreen();
+  Widget currentScreen = const HomeScreen();
 
   ControlScreen({super.key});
 
@@ -28,7 +28,6 @@ class ControlScreen extends GetWidget<AuthViewModel> {
 
   Widget bottomNavigationBar() {
     return GetBuilder<ControlViewModel>(
-      init: ControlViewModel(),
       builder: (controller) {
         return BottomNavigationBar(
           items: [
