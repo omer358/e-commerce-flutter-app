@@ -56,4 +56,13 @@ class CartDatabaseHelper {
             .toList()
         : [];
   }
+
+  Future<void> deleteProduct(String productId) async {
+    var dbClient = await database;
+    await dbClient.delete(
+      tableCartProduct,
+      where: '$columnProductId = ?',
+      whereArgs: [productId],
+    );
+  }
 }
