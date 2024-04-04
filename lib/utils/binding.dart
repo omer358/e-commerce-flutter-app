@@ -14,6 +14,6 @@ class Binding extends Bindings {
     Get.lazyPut(() => HomeViewModel());
     Get.lazyPut(() => CartViewModel(), fenix: true);
     Get.lazyPut(() => LocalStorageData());
-    Get.lazyPut(() => ProfileViewModel(),fenix: true);
+    Get.lazyPut(() => ProfileViewModel(), fenix: true);
   }
 }

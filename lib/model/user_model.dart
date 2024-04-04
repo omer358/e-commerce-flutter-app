@@ -2,9 +2,9 @@ class UserModel {
   String userId;
   String email;
   String? name;
-  String? pic;
+  String pic ;
 
-  UserModel({required this.userId, required this.email,  this.name, this.pic});
+  UserModel({required this.userId, required this.email,  this.name, this.pic=""});
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
     return UserModel(
@@ -22,5 +22,10 @@ class UserModel {
       'name': name,
       'pic': pic,
     };
+  }
+
+  @override
+  String toString() {
+    return 'UserModel{userId: $userId, email: $email, name: $name, pic: $pic}';
   }
 }
