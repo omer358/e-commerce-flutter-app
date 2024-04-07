@@ -24,7 +24,7 @@ class CheckoutScreen extends StatelessWidget {
           steps: [
             Step(
               title: const Text("Deliver"),
-              content: const DeliveryTime(),
+              content:  DeliveryTime(),
               isActive: controller.currentStep == 0,
             ),
             Step(
