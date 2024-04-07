@@ -1,3 +1,4 @@
+import 'package:e_commerce_app/constants.dart';
 import 'package:e_commerce_app/utils/binding.dart';
 import 'package:e_commerce_app/view/control_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -24,7 +25,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         fontFamily: 'sourceSans',
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: primaryColor),
         useMaterial3: true,
       ),
       debugShowCheckedModeBanner: false,
