@@ -20,8 +20,8 @@ class _DeliveryTimeState extends State<DeliveryTime> {
           height: 30,
         ),
         RadioListTile(
-          title: CustomText(text: "Standard Delivery", fontSize: 24),
-          subtitle: CustomText(
+          title: const CustomText(text: "Standard Delivery", fontSize: 24),
+          subtitle: const CustomText(
             text: "\nOrder will be Delivered between 3-5 business days",
             fontSize: 16,
           ),
@@ -35,8 +35,8 @@ class _DeliveryTimeState extends State<DeliveryTime> {
         ),
         const SizedBox(height: 20,),
         RadioListTile(
-          title: CustomText(text: "Next Day Delivery", fontSize: 24),
-          subtitle: CustomText(
+          title: const CustomText(text: "Next Day Delivery", fontSize: 24),
+          subtitle: const CustomText(
             text:
                 "\nPlace your order before 6pm and your items will be delivered next day!",
             fontSize: 16,
@@ -51,8 +51,8 @@ class _DeliveryTimeState extends State<DeliveryTime> {
         ),
         const SizedBox(height: 20,),
         RadioListTile(
-          title: CustomText(text: "Nominated Delivery", fontSize: 24),
-          subtitle: CustomText(
+          title: const CustomText(text: "Nominated Delivery", fontSize: 24),
+          subtitle: const CustomText(
             text:
                 "\nPick a particular  date from the calender  and your order will be delivered  on the selected date ",
             fontSize: 16,
