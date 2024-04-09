@@ -38,18 +38,9 @@ class AddAddress extends StatelessWidget {
                     log("Street1 value is null!");
                   }
                 },
-                onValidate: (value) {
-                  if (value != null) {
-                    if (value.isEmpty) {
-                      return "This field  can't be empty!";
-                    } else {
-                      return null;
-                    }
-                  } else {
-                    log("the value of validator is null");
-                    return null;
-                  }
-                },
+                onValidate: (value) => value?.isEmpty ?? true
+                    ? "This field can't be empty!"
+                    : null,
               ),
               const SizedBox(height: 40),
               CustomTextFormField(
@@ -62,41 +53,24 @@ class AddAddress extends StatelessWidget {
                       log("Street1 value is null!");
                     }
                   },
-                  onValidate: (value) {
-                    if (value != null) {
-                      if (value.isEmpty) {
-                        return "This field  can't be empty!";
-                      } else {
-                        return null;
-                      }
-                    } else {
-                      log("the value of validator is null");
-                      return null;
-                    }
-                  }),
+                  onValidate: (value) => value?.isEmpty ?? true
+                      ? "This field can't be empty!"
+                      : null),
               const SizedBox(height: 40),
               CustomTextFormField(
-                  text: "City",
-                  hint: "Wad Madani",
-                  onSave: (value) {
-                    if (value != null) {
-                      controller.street2 = value;
-                    } else {
-                      log("City value is null!");
-                    }
-                  },
-                  onValidate: (value) {
-                    if (value != null) {
-                      if (value.isEmpty) {
-                        return "This field  can't be empty!";
-                      } else {
-                        return null;
-                      }
-                    } else {
-                      log("the value of validator is null");
-                      return null;
-                    }
-                  }),
+                text: "City",
+                hint: "Wad Madani",
+                onSave: (value) {
+                  if (value != null) {
+                    controller.street2 = value;
+                  } else {
+                    log("City value is null!");
+                  }
+                },
+                onValidate: (value) => value?.isEmpty ?? true
+                    ? "This field can't be empty!"
+                    : null,
+              ),
               Container(
                 width: Get.width,
                 child: Padding(
@@ -115,18 +89,8 @@ class AddAddress extends StatelessWidget {
                               log("state value is null!");
                             }
                           },
-                          onValidate: (value) {
-                            if (value != null) {
-                              if (value.isEmpty) {
-                                return "This field  can't be empty!";
-                              } else {
-                                return null;
-                              }
-                            } else {
-                              log("the value of validator is null");
-                              return null;
-                            }
-                          },
+                          onValidate: (value)=>
+                          value?.isEmpty ?? true ? "This field can't be empty!" : null,
                         ),
                       ),
                       Expanded(
@@ -142,18 +106,8 @@ class AddAddress extends StatelessWidget {
                                   log("country value is null!");
                                 }
                               },
-                              onValidate: (value) {
-                                if (value != null) {
-                                  if (value.isEmpty) {
-                                    return "This field  can't be empty!";
-                                  } else {
-                                    return null;
-                                  }
-                                } else {
-                                  log("the value of validator is null");
-                                  return null;
-                                }
-                              }),
+                              onValidate: (value) =>
+                              value?.isEmpty ?? true ? "This field can't be empty!" : null,),
                         ),
                       )
                     ],
