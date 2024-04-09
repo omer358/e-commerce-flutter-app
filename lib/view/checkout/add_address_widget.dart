@@ -20,10 +20,17 @@ class AddAddress extends StatelessWidget {
               const SizedBox(
                 height: 35,
               ),
-              const CustomText(
-                text: "Billing address is the same as delivery address",
-                fontSize: 20,
-                alignment: Alignment.center,
+              const  Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(Icons.check_circle, color: Colors.green,),
+                  SizedBox(width: 5,),
+                  CustomText(
+                    text: "Billing address is the same as delivery address",
+                    fontSize: 16,
+                    alignment: Alignment.center,
+                  ),
+                ],
               ),
               const SizedBox(
                 height: 40,
