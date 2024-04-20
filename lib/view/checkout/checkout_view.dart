@@ -24,18 +24,33 @@ class CheckoutScreen extends StatelessWidget {
           steps: [
             Step(
               title: const Text("Deliver"),
-              content:  DeliveryTime(),
+              content: DeliveryTime(),
               isActive: controller.currentStep == 0,
+              state: controller.stepCompleted[0]
+                  ? StepState.complete
+                  : controller.stepEditing[0]
+                      ? StepState.editing
+                      : StepState.indexed,
             ),
             Step(
               title: const Text("Address"),
               content: const AddAddress(),
               isActive: controller.currentStep == 1,
+              state: controller.stepCompleted[1]
+                  ? StepState.complete
+                  : controller.stepEditing[1]
+                      ? StepState.editing
+                      : StepState.indexed,
             ),
             Step(
               title: const Text("Summary"),
               content: const SummaryWidget(),
               isActive: controller.currentStep == 2,
+              state: controller.stepCompleted[2]
+                  ? StepState.complete
+                  : controller.stepEditing[2]
+                      ? StepState.editing
+                      : StepState.indexed,
             ),
           ],
           onStepTapped: (int newIndex) {
