@@ -7,12 +7,19 @@ import 'package:get/get.dart';
 
 class CheckoutViewModel extends GetxController {
   int _currentStep = 0;
-  late String street1, street2, city, state, country;
+  String? street1, street2, city, state, country;
   GlobalKey<FormState> formState = GlobalKey();
 
-  List<bool> stepCompleted = [false, false, false]; // Tracks completion status of each step
-  List<bool> stepEditing = [true, false, false]; // Tracks editing status of each step, set first step to true initially
-
+  List<bool> stepCompleted = [
+    false,
+    false,
+    false
+  ]; // Tracks completion status of each step
+  List<bool> stepEditing = [
+    true,
+    false,
+    false
+  ]; // Tracks editing status of each step, set first step to true initially
 
   get currentStep => _currentStep;
 
@@ -21,14 +28,17 @@ class CheckoutViewModel extends GetxController {
     update();
   }
 
-    void nextStep() {
+  void nextStep() {
     const int maxStep = 2;
 
     if (_currentStep == 1) {
       // Check if it's the step with the form
       if (formState.currentState!.validate()) {
-        stepCompleted[_currentStep] = true; // Mark the current step as completed
-        stepEditing[_currentStep] = false; // Turn off editing for the current step
+        stepCompleted[_currentStep] =
+            true; // Mark the current step as completed
+        stepEditing[_currentStep] =
+            false; // Turn off editing for the current step
+        formState.currentState!.save();
         _currentStep += 1;
       }
     } else if (_currentStep < maxStep) {

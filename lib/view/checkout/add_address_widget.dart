@@ -20,11 +20,16 @@ class AddAddress extends StatelessWidget {
               const SizedBox(
                 height: 35,
               ),
-              const  Row(
+              const Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(Icons.check_circle, color: Colors.green,),
-                  SizedBox(width: 5,),
+                  Icon(
+                    Icons.check_circle,
+                    color: Colors.green,
+                  ),
+                  SizedBox(
+                    width: 5,
+                  ),
                   CustomText(
                     text: "Billing address is the same as delivery address",
                     fontSize: 16,
@@ -41,6 +46,7 @@ class AddAddress extends StatelessWidget {
                 onSave: (value) {
                   if (value != null) {
                     controller.street1 = value;
+                    log(controller.street1 ?? "null");
                   } else {
                     log("Street1 value is null!");
                   }
@@ -69,7 +75,7 @@ class AddAddress extends StatelessWidget {
                 hint: "Wad Madani",
                 onSave: (value) {
                   if (value != null) {
-                    controller.street2 = value;
+                    controller.city = value;
                   } else {
                     log("City value is null!");
                   }
@@ -91,30 +97,33 @@ class AddAddress extends StatelessWidget {
                           hint: "Al-Jazeriah",
                           onSave: (value) {
                             if (value != null) {
-                              controller.city = value;
+                              controller.state = value;
                             } else {
                               log("state value is null!");
                             }
                           },
-                          onValidate: (value)=>
-                          value?.isEmpty ?? true ? "This field can't be empty!" : null,
+                          onValidate: (value) => value?.isEmpty ?? true
+                              ? "This field can't be empty!"
+                              : null,
                         ),
                       ),
                       Expanded(
                         child: Padding(
                           padding: const EdgeInsets.only(left: 20.0),
                           child: CustomTextFormField(
-                              text: "Country",
-                              hint: "Sudan",
-                              onSave: (value) {
-                                if (value != null) {
-                                  controller.country = value;
-                                } else {
-                                  log("country value is null!");
-                                }
-                              },
-                              onValidate: (value) =>
-                              value?.isEmpty ?? true ? "This field can't be empty!" : null,),
+                            text: "Country",
+                            hint: "Sudan",
+                            onSave: (value) {
+                              if (value != null) {
+                                controller.country = value;
+                              } else {
+                                log("country value is null!");
+                              }
+                            },
+                            onValidate: (value) => value?.isEmpty ?? true
+                                ? "This field can't be empty!"
+                                : null,
+                          ),
                         ),
                       )
                     ],
