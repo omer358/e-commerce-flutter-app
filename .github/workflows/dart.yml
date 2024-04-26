@@ -35,7 +35,7 @@ jobs:
         echo "${{ secrets.RELEASE_KEYSTORE_PHRASE }}"
         echo "${{ secrets.KEYSTORE_FILE }}" > encrypted_keystore.asc
         echo "${{ secrets.RELEASE_KEYSTORE_PHRASE }}" > keystore_passphrase.txt
-        gpg -d --passphrase "${{secrets.RELEASE_KEYSTORE_PHRASE}} -o keystore.keystore encrypted_keystore.asc
+        gpg -d --passphrase "${{secrets.RELEASE_KEYSTORE_PHRASE}}" -o keystore.keystore encrypted_keystore.asc
 
 
     - name: Build APK
