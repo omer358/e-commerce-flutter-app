@@ -9,6 +9,9 @@ jobs:
   build:
     name: Build APK
     runs-on: ubuntu-latest
+
+     env:
+        RELEASE_KEYSTORE_PHRASE: ${{ secrets.RELEASE_KEYSTORE_PHRASE }}
     
     steps:
     - name: Checkout Repository
@@ -21,6 +24,13 @@ jobs:
 
     - name: Install Dependencies
       run: flutter pub get
+
+    - name: Decrypt Keystore File
+      run: |
+        echo "${{ secrets.KEYSTORE_FILE }}" > encrypted_keystore.gpg
+        echo "${{ secrets.RELEASE_KEYSTORE_PHRASE }}" > keystore_passphrase.txt
+        gpg -d --passphrase-file=keystore_passphrase.txt -o keystore.jks encrypted_keystore.gpg
+
 
     - name: Build APK
       run: flutter build apk --release
