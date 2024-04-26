@@ -10,8 +10,8 @@ jobs:
     name: Build APK
     runs-on: ubuntu-latest
 
-     env:
-        RELEASE_KEYSTORE_PHRASE: ${{ secrets.RELEASE_KEYSTORE_PHRASE }}
+    env:
+      RELEASE_KEYSTORE_PHRASE: ${{ secrets.RELEASE_KEYSTORE_PHRASE }}
     
     steps:
     - name: Checkout Repository
