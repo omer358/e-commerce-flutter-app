@@ -1,0 +1,48 @@
+name: Build and Release APK
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    name: Build APK
+    runs-on: ubuntu-latest
+
+    env:
+      RELEASE_KEYSTORE_PHRASE: ${{ secrets.RELEASE_KEYSTORE_PHRASE }}
+    
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+
+    - name: Set up Flutter
+      uses: subosito/flutter-action@v2
+      with:
+        flutter-version: '3.19.5'
+
+    - name: Install Dependencies
+      run: flutter pub get
+
+    - name: Set GPG_TTY environment variable
+      run: echo "export GPG_TTY=true" >> $GITHUB_ENV
+
+
+    - name: Decrypt Keystore File
+      run: |
+        echo "${{secrets.KEYSTORE_FILE}}"
+        echo "${{ secrets.RELEASE_KEYSTORE_PHRASE}}"
+        echo "${{ secrets.KEYSTORE_FILE }}" > encrypted_keystore.gpg
+        echo "${{ secrets.RELEASE_KEYSTORE_PHRASE }}" > keystore_passphrase.txt
+        gpg -d --passphrase-file=keystore_passphrase.txt -o keystore.keystore encrypted_keystore.gpg
+
+
+    - name: Build APK
+      run: flutter build apk --release
+
+    - name: Upload APK Artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: app-release
+        path: build/app/outputs/flutter-apk/app-release.apk
