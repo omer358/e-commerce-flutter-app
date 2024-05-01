@@ -28,7 +28,7 @@ android {
         debuge {
             keyAlias 'e-commerce-alias'
             keyPassword '1029384756'
-            storeFile file('/home/omer358/Documents/keystore_files/e_commerce.keystore')
+            storeFile file('/home/omer358/Documents/keystore_files/e-commerce-releasa.keystore')
             storePassword '1029384756'
         }
         release {
