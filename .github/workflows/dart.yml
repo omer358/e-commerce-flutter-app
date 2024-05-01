@@ -31,10 +31,8 @@ jobs:
 
     - name: Decrypt Keystore File
       run: |
-        echo "${{secrets.KEYSTORE_FILE}}"
-        echo "${{ secrets.RELEASE_KEYSTORE_PHRASE}}"
-        echo "${{ secrets.KEYSTORE_FILE }}" > encrypted_keystore.gpg
-        echo "${{ secrets.RELEASE_KEYSTORE_PHRASE }}" > keystore_passphrase.txt
+        echo "${{secrets.KEYSTORE_FILE }}" > encrypted_keystore.gpg
+        echo "${{secrets.RELEASE_KEYSTORE_PHRASE }}" > keystore_passphrase.txt
         gpg -d --passphrase-file=keystore_passphrase.txt -o keystore.keystore encrypted_keystore.gpg
 
 
