@@ -31,8 +31,8 @@ jobs:
 
     - name: Decrypt Keystore File
       run: |
-        echo "${{secrets.KEYSTORE_FILE }}" > encrypted_keystore.keystore.asc
-        gpg -d --passphrase "${{secrets.RELEASE_KEYSTORE_PHRASE}}" --batch encrypted_keystore.keystore.asc > app/release.keystore
+        echo "${{ secrets.KEYSTORE_FILE }}" > encrypted_keystore.keystore.asc
+        gpg -d --passphrase "${{ secrets.RELEASE_KEYSTORE_PHRASE }}" --batch encrypted_keystore.keystore.asc > app/release.keystore
 
 
     - name: Build APK
