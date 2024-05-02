@@ -7,7 +7,6 @@ import 'package:e_commerce_app/view/widgets/custom_text.dart';
 import 'package:e_commerce_app/view_model/cart_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/src/simple/get_state.dart';
 
 import '../model/cart_product_model.dart';
 
@@ -27,9 +26,12 @@ class DetailsScreen extends StatelessWidget {
             Container(
               width: MediaQuery.of(context).size.width,
               height: 270,
-              child: Image.network(
-                model.image,
-                fit: BoxFit.fill,
+              child: Hero(
+                tag: "product-image-${model.name}",
+                child: Image.network(
+                  model.image,
+                  fit: BoxFit.fill,
+                ),
               ),
             ),
             const SizedBox(
