@@ -9,37 +9,37 @@ jobs:
   build:
     name: Build APK
     runs-on: ubuntu-latest
-    
+
     steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v2
+      - name: Checkout Repository
+        uses: actions/checkout@v2
 
-    - name: Set up Flutter
-      uses: subosito/flutter-action@v2
-      with:
-        flutter-version: '3.19.5'
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.19.5'
 
-    - name: Install Dependencies
-      run: flutter pub get
+      - name: Install Dependencies
+        run: flutter pub get
 
-    - name: Set GPG_TTY environment variable
-      run: echo "export GPG_TTY=true" >> $GITHUB_ENV
+      - name: Set GPG_TTY environment variable
+        run: echo "export GPG_TTY=true" >> $GITHUB_ENV
 
 
-    - name: Decrypt Keystore File
-      env:
-        RELEASE_KEYSTORE_PHRASE: ${{ secrets.RELEASE_KEYSTORE_PHRASE }}
-        RELEASE_KEYSTORE_FILE: ${{ secrets.KEYSTORE_FILE }}
-      run: |
-        echo "$RELEASE_KEYSTORE_FILE" > release.keystore.asc
-        echo "$RELEASE_KEYSTORE_PHRASE" > keystore_passphrase.txt
-        gpg -d --passphrase-file=keystore_passphrase.txt --batch release.keystore.asc > e-commerce-releasa.keystore
+      - name: Decrypt Keystore File
+        env:
+          RELEASE_KEYSTORE_PHRASE: ${{ secrets.RELEASE_KEYSTORE_PHRASE }}
+          RELEASE_KEYSTORE_FILE: ${{ secrets.KEYSTORE_FILE }}
+        run: |
+          echo "$RELEASE_KEYSTORE_FILE" > release.keystore.asc
+          echo "$RELEASE_KEYSTORE_PHRASE" > keystore_passphrase.txt
+          gpg -d --passphrase-file=keystore_passphrase.txt --batch release.keystore.asc > e-commerce-releasa.keystore
 
-    - name: Build APK
-      run: flutter build apk --release
+      - name: Build APK
+        run: flutter build apk --release
 
-    - name: Upload APK Artifact
-      uses: actions/upload-artifact@v2
-      with:
-        name: app-release
-        path: build/app/outputs/flutter-apk/app-release.apk
+      - name: Upload APK Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: app-release
+          path: build/app/outputs/flutter-apk/app-release.apk
