@@ -34,8 +34,8 @@ android {
         release {
             keyAlias 'e-commerce-release-alias'
             keyPassword System.getenv("E_COMMERCE_KEY_PASSWORD")
-            storeFile file('/home/omer358/Documents/keystore_files/e-commerce-releasa.keystore')
             storePassword System.getenv("E_COMMERCE_STORE_PASSWORD")
+            storeFile file('e-commerce-releasa.keystore')
         }
     }
     namespace "com.example.e_commerce_app"
