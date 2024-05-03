@@ -12,6 +12,7 @@ jobs:
 
     env:
       RELEASE_KEYSTORE_PHRASE: ${{ secrets.RELEASE_KEYSTORE_PHRASE }}
+      RELEASE_KEYSTORE_FILE: ${{ secrets.KEYSTORE_FILE }}
     
     steps:
     - name: Checkout Repository
@@ -31,8 +32,8 @@ jobs:
 
     - name: Decrypt Keystore File
       run: |
-        echo "${{secrets.KEYSTORE_FILE }}" > encrypted_keystore.gpg
-        echo "${{secrets.RELEASE_KEYSTORE_PHRASE }}" > keystore_passphrase.txt
+        echo "${{ KEYSTORE_FILE }}" > encrypted_keystore.gpg
+        echo "${{ RELEASE_KEYSTORE_PHRASE }}" > keystore_passphrase.txt
         gpg -d --passphrase-file=keystore_passphrase.txt -o keystore.keystore encrypted_keystore.gpg
 
         # echo "${{ secrets.KEYSTORE_FILE }}" > encrypted_keystore.keystore.asc
