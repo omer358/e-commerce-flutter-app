@@ -27,7 +27,7 @@ jobs:
 
 
     - name: Decrypt Keystore File
-    - env:
+      env:
         RELEASE_KEYSTORE_PHRASE: ${{ secrets.RELEASE_KEYSTORE_PHRASE }}
         RELEASE_KEYSTORE_FILE: ${{ secrets.KEYSTORE_FILE }}
       run: |
