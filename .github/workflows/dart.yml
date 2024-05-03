@@ -38,7 +38,7 @@ jobs:
         gpg -d --passphrase-file=keystore_passphrase.txt --batch release.keystore.asc > app/release.keystore
 
         # echo "${{ secrets.KEYSTORE_FILE }}" > encrypted_keystore.keystore.asc
-        # gpg -d --passphrase "${{ secrets.RELEASE_KEYSTORE_PHRASE }}" --batch encrypted_keystore.keystore.asc > app/release.keystore
+        # gpg -d --passphrase "${{ secrets.RELEASE_KEYSTORE_PHRASE }}" --batch encrypted_keystore.keystore.asc > e-commerce-releasa.keystore
 
 
     - name: Build APK
