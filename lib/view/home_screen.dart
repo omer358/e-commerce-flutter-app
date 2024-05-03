@@ -123,9 +123,16 @@ class HomeScreen extends GetWidget<AuthViewModel> {
             return GestureDetector(
               onTap: () {
                 log(controller.products[index].toString());
-                Get.to(() => DetailsScreen(
-                      model: controller.products[index],
-                    ));
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        DetailsScreen(model: controller.products[index]),
+                  ),
+                );
+                // Get.to(() => DetailsScreen(
+                //       model: controller.products[index],
+                //     ));
               },
               child: SizedBox(
                 width: MediaQuery.of(context).size.width * .4,
@@ -134,9 +141,12 @@ class HomeScreen extends GetWidget<AuthViewModel> {
                     SizedBox(
                       width: MediaQuery.of(context).size.width * .4,
                       height: 220,
-                      child: Image.network(
-                        controller.products[index].image,
-                        fit: BoxFit.fill,
+                      child: Hero(
+                        tag: "product-image-${controller.products[index].name}",
+                        child: Image.network(
+                          controller.products[index].image,
+                          fit: BoxFit.fill,
+                        ),
                       ),
                     ),
                     const SizedBox(
