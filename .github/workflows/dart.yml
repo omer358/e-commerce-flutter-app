@@ -30,16 +30,10 @@ jobs:
       env:
         RELEASE_KEYSTORE_PHRASE: ${{ secrets.RELEASE_KEYSTORE_PHRASE }}
         RELEASE_KEYSTORE_FILE: ${{ secrets.KEYSTORE_FILE }}
-        # PUBLIC_KEY: ${{ secrets.GPG_PUBLIC_KEY }}
       run: |
         echo "$RELEASE_KEYSTORE_FILE" > release.keystore.asc
         echo "$RELEASE_KEYSTORE_PHRASE" > keystore_passphrase.txt
-        # echo "$PUBLIC_KEY" > public.txt
-        gpg -d --passphrase-file=keystore_passphrase.txt --batch release.keystore.asc > app/release.keystore
-
-        # echo "${{ secrets.KEYSTORE_FILE }}" > encrypted_keystore.keystore.asc
-        # gpg -d --passphrase "${{ secrets.RELEASE_KEYSTORE_PHRASE }}" --batch encrypted_keystore.keystore.asc > e-commerce-releasa.keystore
-
+        gpg -d --passphrase-file=keystore_passphrase.txt --batch release.keystore.asc > e-commerce-releasa.keystore
 
     - name: Build APK
       run: flutter build apk --release
