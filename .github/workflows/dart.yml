@@ -33,7 +33,7 @@ jobs:
         run: |
           echo "$RELEASE_KEYSTORE_FILE" > release.keystore.asc
           echo "$RELEASE_KEYSTORE_PHRASE" > keystore_passphrase.txt
-          gpg -d --passphrase-file=keystore_passphrase.txt --batch release.keystore.asc > e-commerce-releasa.keystore
+          gpg -d --passphrase-file=keystore_passphrase.txt --batch release.keystore.asc > android/app/e-commerce-releasa.keystore
 
       - name: Build APK
         run: flutter build apk --release
