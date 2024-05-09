@@ -32,10 +32,12 @@ android {
             storePassword '1029384756'
         }
         release {
-            keyAlias 'e-commerce-release-alias'
+            keyAlias 'e-commerce-alias'
+            println("DEBUG: keyPassword: " + System.getenv("KEYPASSWORD"))
+            println("DEBUG: storePassword: " + System.getenv("STOREPASSWORD"))
             keyPassword System.getenv("KEYPASSWORD")
             storePassword System.getenv("STOREPASSWORD")
-            storeFile file("e-commerce-releasa.keystore")
+            storeFile file("e-commerce.keystore")
         }
     }
     namespace "com.example.e_commerce_app"
