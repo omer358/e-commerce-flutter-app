@@ -42,6 +42,9 @@ jobs:
           gpg -d --passphrase-file=keystore_passphrase.txt --batch release.keystore.asc > android/app/e-commerce.keystore
 
       - name: Build APK
+        env:
+          KEYPASSWORD: ${{ secrets.E_COMMERCE_KEY_PASSWORD }}
+          STOREPASSWORD: ${{ secrets.E_COMMERCE_STORE_PASSWORD }}
         run: flutter build apk --release
 
       - name: Upload APK Artifact
